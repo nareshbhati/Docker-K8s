@@ -1,0 +1,25 @@
+# @format
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task
+  template:
+    metadata:
+      labels:
+        app: task
+    spec:
+      containers:
+        - name: task
+          image: nareshbhati/kube-task-api
+          imagePullPolicy: Always
+          env:
+            - name: TASKS_FOLDER
+              value: tasks
+            - name: AUTH_ADDRESS
+              value: auth-service
